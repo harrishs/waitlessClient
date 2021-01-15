@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {apiUrl} from "../../util/constants";
 
 const Menu = props => {
 
@@ -7,18 +8,45 @@ const Menu = props => {
     const [price, setPrice] = useState(0.00);
     const [imageUrl, setImageUrl] = useState("");
 
+    const inputHandler = (e, type) => {
+        if (type === "name"){
+            setName(e.target.value);
+        } else if (type === "description"){
+            setDescription(e.target.value);
+        } else if (type === "price"){
+            setPrice(e.target.value);
+        } else if (type === "imageUrl"){
+            setImageUrl(e.target.value);
+        }
+    }
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        let reqOptions = {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({name, description, price, imageUrl})
+        };
+        fetch(`${apiUrl}/menu/add`, reqOptions)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        }).catch(err => console.log(err));
+    }
+
     return (
         <div>
             <h1>Add Items to Menu</h1>
-            <form>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <label>Name</label>
-                <input type="text" name="name"/>
+                <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
                 <label>Description</label>
-                <input type="text" name="description"/>
+                <input type="text" name="description" onChange={(e) => inputHandler(e,"description")}/>
                 <label>Price</label>
-                <input type="number" step="0.01" name="price" min="0.00"/>
+                <input type="number" step="0.01" name="price" min="0.00" onChange={(e) => inputHandler(e,"price")}/>
                 <label>Image Url</label>
-                <input type="text" name="imageUrl"/>
+                <input type="text" name="imageUrl" onChange={(e) => inputHandler(e,"imageUrl")}/>
+                <button type="submit">Add Item</button>
             </form>
         </div>
     )
