@@ -12,6 +12,7 @@ const MenuEditor = props => {
         fetch(`${apiUrl}/restaurant/menu`)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             setMenu(data);
         })
         .catch(err => console.log(err));
@@ -22,10 +23,12 @@ const MenuEditor = props => {
         <AddMenu />
     </div>
 
-    if (menu) {
-        displayMenu = <div>
-            <h1>Items On Menu</h1>
-        </div>
+    if (menu){
+        if (menu.length >= 1) {
+            displayMenu = <div>
+                <h1>Items On Menu</h1>
+            </div>
+        }
     }
 
     return (
