@@ -13,7 +13,7 @@ const MenuEditor = props => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            setMenu(data);
+            setMenu(data.items);
         })
         .catch(err => console.log(err));
     }, []);
@@ -24,11 +24,23 @@ const MenuEditor = props => {
     </div>
 
     if (menu){
-        if (menu.length >= 1) {
-            displayMenu = <div>
-                <h1>Items On Menu</h1>
-            </div>
+        let menuRender;
+        if (menu.length > 0){
+            menuRender = menu.map(item => {
+                console.log(item);
+                return (
+                    <div key={item._id}>
+                        <h1>{item.name}</h1>
+                        <h3>{item.price}</h3>
+                    </div>
+                )
+            });
         }
+        displayMenu = <div>
+            <h1>Items On Menu</h1>
+            {menuRender}
+            <AddMenu />
+        </div>
     }
 
     return (
