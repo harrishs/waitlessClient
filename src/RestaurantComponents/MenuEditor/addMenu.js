@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {apiUrl} from "../../util/constants";
 
 const Menu = props => {
 
@@ -27,7 +26,7 @@ const Menu = props => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({name, description, price, imageUrl})
         };
-        fetch(`${apiUrl}/restaurant/menu/add`, reqOptions)
+        fetch(`${process.env.REACT_APP_API}/restaurant/menu/add`, reqOptions)
         .then(res => res.json())
         .then(data => {
             console.log(data);

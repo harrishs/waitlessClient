@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 
 import Aux from "../../hoc/Aux";
-import {apiUrl} from "../../util/constants";
 import AddMenu from "./addMenu";
 
 const MenuEditor = props => {
@@ -9,7 +8,7 @@ const MenuEditor = props => {
     const [menu, setMenu] = useState();
 
     useEffect(()=> {
-        fetch(`${apiUrl}/restaurant/menu`)
+        fetch(`${process.env.REACT_APP_API}/restaurant/menu`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
