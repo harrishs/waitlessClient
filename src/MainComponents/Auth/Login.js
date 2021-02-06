@@ -18,13 +18,22 @@ const Login = () => {
         }).catch(err => console.log(err));
     }
 
+    const entryHandler = (e, type) => {
+        let entry = e.target.value;
+        if (type === "email"){
+            setEmail(entry);
+        } else if (type === "password"){
+            setPassword(entry);
+        }
+    }
+
     return (
         <div>
             <form onSubmit={e => submitHandler(e)}>
                 <label>Email</label>
-                <input type="email"/>
+                <input type="email" onChange={e => entryHandler(e, "email")} autoComplete="username"/>
                 <label>Password</label>
-                <input type="password"/>
+                <input type="password" onChange={e => entryHandler(e, "password")} autoComplete="current-password"/>
                 <button type="submit">Login</button>
             </form>
         </div>

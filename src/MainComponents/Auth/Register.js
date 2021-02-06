@@ -19,15 +19,26 @@ const Register = () => {
         }).catch(err => console.log(err));
     }
 
+    const entryHandler = (e, type) => {
+        let entry = e.target.value;
+        if (type === "name"){
+            setName(entry);
+        } else if (type === "email"){
+            setEmail(entry);
+        } else if (type === "password"){
+            setPassword(entry);
+        }
+    }
+
     return (
         <div>
             <form onSubmit={e => submitHandler(e)}>
                 <label>Name</label>
-                <input type="text"/>
+                <input type="text" onChange={e => entryHandler(e, "name")}/>
                 <label>Email</label>
-                <input type="email"/>
+                <input type="email" onChange={e => entryHandler(e, "email")} autoComplete="username"/>
                 <label>Password</label>
-                <input type="password"/>
+                <input type="password" onChange={e => entryHandler(e, "password")} autoComplete="current-password"/>
                 <button type="submit">Register</button>
             </form>
         </div>
