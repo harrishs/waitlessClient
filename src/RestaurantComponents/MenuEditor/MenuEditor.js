@@ -1,31 +1,33 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
+import {AuthContext} from "../../context/authContext";
 
 import Aux from "../../hoc/Aux";
 import AddMenu from "./addMenu";
 
 const MenuEditor = props => {
 
-    const [menu, setMenu] = useState();
+    const [menus, setMenus] = useState();
+    const [auth] = useContext(AuthContext);
 
     useEffect(()=> {
-        fetch(`${process.env.REACT_APP_API}/restaurant/menu`)
+        fetch(`${process.env.REACT_APP_API}/${auth.userId}/menus`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            setMenu(data.items);
+            setMenus(data.items);
         })
         .catch(err => console.log(err));
     }, []);
 
-    let displayMenu = <div>
+    let displayMenus = <div>
         <h1>No Items On Menu</h1>
         <AddMenu />
     </div>
 
-    if (menu){
+    if (menus){
         let menuRender;
-        if (menu.length > 0){
-            menuRender = menu.map(item => {
+        if (menus.length > 0){
+            menuRender = menus.map(item => {
                 console.log(item);
                 return (
                     <div key={item._id}>
@@ -35,7 +37,7 @@ const MenuEditor = props => {
                 )
             });
         }
-        displayMenu = <div>
+        displayMenus = <div>
             <h1>Items On Menu</h1>
             {menuRender}
             <AddMenu />
@@ -44,7 +46,7 @@ const MenuEditor = props => {
 
     return (
         <Aux>
-            {displayMenu}
+            {displayMenus}
         </Aux>
     )
 }

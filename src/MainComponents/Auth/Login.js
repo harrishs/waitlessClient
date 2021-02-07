@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
+import {AuthContext} from "../../context/authContext";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
+
+    const [, setAuth] = useContext(AuthContext);
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -14,6 +17,16 @@ const Login = () => {
         fetch(`${process.env.REACT_APP_API}/auth/login`, reqOptions)
         .then(res => res.json())
         .then(data => {
+            if (data.userId && data.token) {
+                const newAuth = {
+                    userId: data.userId,
+                    token: data.token,
+                    isAuth: true
+                };
+                setAuth(newAuth);
+                localStorage.setItem("userId", data.userId);
+                localStorage.setItem("token", data.token);
+            }
             console.log(data);
         }).catch(err => console.log(err));
     }

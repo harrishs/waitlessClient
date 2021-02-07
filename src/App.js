@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {Route, Switch, Redirect} from "react-router-dom";
 
 import {AuthContext} from "./context/authContext";
@@ -10,6 +10,31 @@ import Register from "./MainComponents/Auth/Register";
 
 function App() {
   const [auth, setAuth] = useContext(AuthContext);
+
+  useEffect(() => {
+    //check for auth in localstorage
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+    if (token && userId && auth.isAuth === false){
+      const newAuth = {
+        userId,
+        token,
+        isAuth: true
+      };
+      setAuth(newAuth);
+    }
+  })
+
+  const logout = () => {
+    const newAuth = {
+      userId: null,
+      token: null,
+      isAuth: false
+    };
+    setAuth(newAuth);
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+  }
 
   let routes = (
     <Switch>
@@ -23,7 +48,7 @@ function App() {
   if (auth.isAuth){
     routes = (
       <Switch>
-        {/* add route for logout */}
+        <Route path="/logout" exact render={() => logout()}/>
         <Route path="/" exact component={MenuEditor} />
         <Redirect to="/" />
       </Switch>
