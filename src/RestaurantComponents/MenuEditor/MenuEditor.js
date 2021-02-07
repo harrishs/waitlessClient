@@ -10,14 +10,14 @@ const MenuEditor = props => {
     const [auth] = useContext(AuthContext);
 
     useEffect(()=> {
-        fetch(`${process.env.REACT_APP_API}/${auth.userId}/menus`)
+        fetch(`${process.env.REACT_APP_API}/restaurant/${auth.userId}/menus`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
             setMenus(data.items);
         })
         .catch(err => console.log(err));
-    }, []);
+    });
 
     let displayMenus = <div>
         <h1>No Items On Menu</h1>

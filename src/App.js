@@ -6,6 +6,7 @@ import Layout from "./MainComponents/Layout/Layout";
 import MenuEditor from "./RestaurantComponents/MenuEditor/MenuEditor";
 import Login from "./MainComponents/Auth/Login";
 import Register from "./MainComponents/Auth/Register";
+import Logout from "./MainComponents/Auth/Logout";
 
 
 function App() {
@@ -20,35 +21,24 @@ function App() {
         userId,
         token,
         isAuth: true
-      };
+      }
       setAuth(newAuth);
     }
-  })
-
-  const logout = () => {
-    const newAuth = {
-      userId: null,
-      token: null,
-      isAuth: false
-    };
-    setAuth(newAuth);
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-  }
+  });
 
   let routes = (
     <Switch>
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
       {/* add route for main page */}
-      <Redirect to="/register" />
+      <Redirect to="/login" />
     </Switch>
   )
 
   if (auth.isAuth){
     routes = (
       <Switch>
-        <Route path="/logout" exact render={() => logout()}/>
+        <Route path="/logout" exact component={Logout}/>
         <Route path="/" exact component={MenuEditor} />
         <Redirect to="/" />
       </Switch>
