@@ -20,7 +20,7 @@ const MenuEditor = props => {
     });
 
     let displayMenus = <div>
-        <h1>No Items On Menu</h1>
+        <h1>No Menus Available</h1>
         <AddMenu />
     </div>
 
