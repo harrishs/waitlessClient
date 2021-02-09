@@ -1,5 +1,6 @@
 import React, {useState, useContext} from "react";
 import {AuthContext} from "../../context/authContext";
+import classes from "./Auth.module.css";
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -45,7 +46,7 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <div className={classes.Auth}>
             <form onSubmit={e => submitHandler(e)}>
                 <label>Name</label>
                 <input type="text" onChange={e => entryHandler(e, "name")}/>

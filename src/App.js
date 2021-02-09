@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import {Route, Switch, Redirect} from "react-router-dom";
+import "./App.css";
 
 import {AuthContext} from "./context/authContext";
 import Layout from "./MainComponents/Layout/Layout";

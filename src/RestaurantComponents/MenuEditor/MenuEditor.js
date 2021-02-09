@@ -13,36 +13,36 @@ const MenuEditor = props => {
         fetch(`${process.env.REACT_APP_API}/restaurant/${auth.userId}/menus`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            setMenus(data.items);
+            //recieve array of menuIds from data.menus and retrieve all menu details
+            let finalMenus = [];
+            data.menus.forEach(menuId => {
+                fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}`)
+                .then(response => response.json())
+                .then(data => finalMenus.push(data.menu))
+                .catch(err => console.log(err));
+            });
+            setMenus(finalMenus);
         })
         .catch(err => console.log(err));
     });
 
-    let displayMenus = <div>
-        <h1>No Menus Available</h1>
-        <AddMenu />
-    </div>
+    let renderMenus = <h1>No Menus Available</h1>;
 
     if (menus){
-        let menuRender;
-        if (menus.length > 0){
-            menuRender = menus.map(item => {
-                console.log(item);
-                return (
-                    <div key={item._id}>
-                        <h1>{item.name}</h1>
-                        <h3>{item.price}</h3>
-                    </div>
-                )
-            });
-        }
-        displayMenus = <div>
-            <h1>Items On Menu</h1>
-            {menuRender}
-            <AddMenu />
-        </div>
+        renderMenus = menus.map(menu => {
+            return(
+                <div key={menu._id}>
+                    <h1>{menu.name}</h1>
+                    <p>{menu.description}</p>
+                </div>
+            )
+        })
     }
+
+    let displayMenus = <div>
+        {renderMenus}
+        <AddMenu />
+    </div>
 
     return (
         <Aux>

@@ -1,0 +1,27 @@
+.Auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Auth form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  justify-content: center;
+}
+
+.Auth label {
+  margin: 10px auto;
+}
+
+.Auth input {
+  height: 20px;
+}
+
+.Auth button {
+  margin: 15px auto;
+  height: 50px;
+  width: 200px;
+}

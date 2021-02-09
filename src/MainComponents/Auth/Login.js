@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext";
+import classes from "./Auth.module.css";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div className={classes.Auth}>
             <form onSubmit={e => submitHandler(e)}>
                 <label>Email</label>
                 <input type="email" onChange={e => entryHandler(e, "email")} autoComplete="username"/>
