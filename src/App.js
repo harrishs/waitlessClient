@@ -8,6 +8,7 @@ import MenuEditor from "./RestaurantComponents/MenuEditor/MenuEditor";
 import Login from "./MainComponents/Auth/Login";
 import Register from "./MainComponents/Auth/Register";
 import Logout from "./MainComponents/Auth/Logout";
+import Menu from "./RestaurantComponents/Pages/Menu";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
     <Switch>
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="/:menuId" exact component={Menu} />
       {/* add route for main page */}
       <Redirect to="/login" />
     </Switch>

@@ -1,8 +1,10 @@
 import React, {useState, useEffect, useContext} from "react";
 import {AuthContext} from "../../context/authContext";
+import {Link} from "react-router-dom";
 
 import Aux from "../../hoc/Aux";
 import AddMenu from "./addMenu";
+import classes from "./MenuEditor.module.css";
 
 const MenuEditor = props => {
     const [menus, setMenus] = useState([]);
@@ -11,17 +13,29 @@ const MenuEditor = props => {
     useEffect(()=> {
         fetch(`${process.env.REACT_APP_API}/restaurant/${auth.userId}/menus`)
         .then(response => response.json())
-        .then(data => {
+        .then(async(data) => {
             //receive array of menuIds from data.menus and retrieve all menu details
+            let promises = [];
             data.menus.forEach(menuId => {
-                fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}`)
-                .then(response => response.json())
-                .then(data => setMenus(prevState => [...prevState, data.menu]))
-                .catch(err => console.log(err));
+                promises.push(
+                    fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}`)
+                    .then(response => response.json())
+                    .then(data => data.menu)
+                    .catch(err => console.log(err))
+                );
             });
+            Promise.all(promises)
+            .then(data => setMenus(data))
         })
         .catch(err => console.log(err));
     }, [auth.userId]);
+
+    const deleteMenuHandler = (menuId) => {
+        fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}/delete`, {
+            method: "DELETE",
+            headers: {'X-Auth-Token': auth.token}
+        }).catch(err => console.log(err));
+    }
 
     let renderMenus;
 
@@ -31,18 +45,24 @@ const MenuEditor = props => {
         } else {
             renderMenus = menus.map(menu => {
                 return (
-                    <div key={menu._id}>
+                    <Link key={menu._id} to={`/${menu._id}`} className={classes.Menu}>
                         <h1>{menu.name}</h1>
                         <p>{menu.description}</p>
-                    </div>
+                        <button className={classes.Delete} onClick={() => deleteMenuHandler(menu._id)}>Delete</button>
+                    </Link>
                 )
             });
         }
     }
 
-    let displayMenus = <div>
+    let addMenu;
+    if (menus.length < 5){
+        addMenu = <AddMenu />;
+    }
+
+    let displayMenus = <div className={classes.MenuEditor}>
         {renderMenus}
-        <AddMenu />
+        {addMenu}
     </div>
 
     return (

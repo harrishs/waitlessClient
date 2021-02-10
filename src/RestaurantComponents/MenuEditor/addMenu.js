@@ -32,7 +32,7 @@ const AddMenu = props => {
 
     return (
         <div>
-            <h1>Add Items to Menu</h1>
+            <h1>Add Menu</h1>
             <form onSubmit={(e) => submitHandler(e)}>
                 <label>Name</label>
                 <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
