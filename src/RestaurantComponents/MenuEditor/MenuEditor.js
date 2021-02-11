@@ -6,7 +6,7 @@ import Aux from "../../hoc/Aux";
 import AddMenu from "./addMenu";
 import classes from "./MenuEditor.module.css";
 
-const MenuEditor = props => {
+const MenuEditor = () => {
     const [menus, setMenus] = useState([]);
     const [auth] = useContext(AuthContext);
 
@@ -28,7 +28,7 @@ const MenuEditor = props => {
             .then(data => setMenus(data))
         })
         .catch(err => console.log(err));
-    }, [auth.userId]);
+    }, [auth.userId, menus]);
 
     const deleteMenuHandler = (menuId) => {
         fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}/delete`, {
@@ -45,7 +45,7 @@ const MenuEditor = props => {
         } else {
             renderMenus = menus.map(menu => {
                 return (
-                    <Link key={menu._id} to={`/${menu._id}`} className={classes.Menu}>
+                    <Link key={menu._id} to={`/manage/${menu._id}`} className={classes.Menu}>
                         <h1>{menu.name}</h1>
                         <p>{menu.description}</p>
                         <button className={classes.Delete} onClick={() => deleteMenuHandler(menu._id)}>Delete</button>

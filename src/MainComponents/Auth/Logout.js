@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import {AuthContext} from "../../context/authContext";
+import {Redirect} from "react-router-dom";
 
 const Logout = () => {
     const [, setAuth] = useContext(AuthContext);
@@ -20,6 +21,7 @@ const Logout = () => {
 
     return (
         <>
+        <Redirect to="/"/>
         </>
     )
 }
