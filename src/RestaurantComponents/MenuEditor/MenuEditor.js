@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from "react";
 import {AuthContext} from "../../context/authContext";
-import {Link} from "react-router-dom";
 
 import Aux from "../../hoc/Aux";
 import AddMenu from "./addMenu";
 import classes from "./MenuEditor.module.css";
+import DisplayMenu from "./displayMenu/DisplayMenu";
 
 const MenuEditor = () => {
     const [menus, setMenus] = useState([]);
@@ -30,27 +30,18 @@ const MenuEditor = () => {
         .catch(err => console.log(err));
     }, [auth.userId, menus]);
 
-    const deleteMenuHandler = (menuId) => {
-        fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}/delete`, {
-            method: "DELETE",
-            headers: {'X-Auth-Token': auth.token}
-        }).catch(err => console.log(err));
-    }
-
     let renderMenus;
 
     if (menus){
-        if (menus.length < 1){
+        if (menus.length <= 0){
             renderMenus = <h1>No Menus Available</h1>;
-        } else {
+        } else if (menus.length > 0 ){
             renderMenus = menus.map(menu => {
-                return (
-                    <Link key={menu._id} to={`/manage/${menu._id}`} className={classes.Menu}>
-                        <h1>{menu.name}</h1>
-                        <p>{menu.description}</p>
-                        <button className={classes.Delete} onClick={() => deleteMenuHandler(menu._id)}>Delete</button>
-                    </Link>
-                )
+                if (menu && menu._id){
+                    return <DisplayMenu key={menu._id} menu={menu} /> 
+                } else {
+                    return null
+                }
             });
         }
     }

@@ -2,7 +2,6 @@ import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext";
 
 const AddMenu = props => {
-
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
 
