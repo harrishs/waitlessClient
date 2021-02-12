@@ -8,7 +8,7 @@ const Menu = () => {
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API}/restaurant/${params.menuId}`)
         .then(response => response.json())
-        .then(async(data) => {
+        .then((data) => {
             //receive array of menuIds from data.menus and retrieve all menu details
             let promises = [];
             console.log(data.menu.items);

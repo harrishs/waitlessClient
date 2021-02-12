@@ -41,7 +41,6 @@ function App() {
   if (auth.isAuth){
     routes = (
       <Switch>
-        <Route path="manage/:menuId" exact component={Menu} />
         <Route path="/logout" exact component={Logout}/>
         <Route path="/" exact component={MenuEditor} />
         <Redirect to="/" />
