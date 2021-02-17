@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import {AuthContext} from "../../context/authContext";
 
 const AddItem = props => {
 
@@ -6,6 +7,8 @@ const AddItem = props => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0.00);
     const [imageUrl, setImageUrl] = useState("");
+    const [section, setSection] = useState("");
+    const [auth] = useContext(AuthContext);
 
     const inputHandler = (e, type) => {
         if (type === "name"){
@@ -16,6 +19,8 @@ const AddItem = props => {
             setPrice(e.target.value);
         } else if (type === "imageUrl"){
             setImageUrl(e.target.value);
+        } else if (type === "section"){
+            setSection(e.target.value);
         }
     }
 
@@ -23,10 +28,10 @@ const AddItem = props => {
         event.preventDefault();
         let reqOptions = {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({name, description, price, imageUrl})
+            headers: { 'Content-Type': 'application/json', 'X-Auth-Token': auth.token },
+            body: JSON.stringify({name, description, price, imageUrl, section})
         };
-        fetch(`${process.env.REACT_APP_API}/restaurant/menu/add`, reqOptions)
+        fetch(`${process.env.REACT_APP_API}/restaurant/${props.id}/addItem`, reqOptions)
         .then(res => res.json())
         .then(data => {
             console.log(data);
@@ -38,13 +43,15 @@ const AddItem = props => {
             <h1>Add Items to Menu</h1>
             <form onSubmit={(e) => submitHandler(e)}>
                 <label>Name</label>
-                <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
+                <input type="text" name="name" required onChange={(e) => inputHandler(e,"name")}/>
                 <label>Description</label>
-                <input type="text" name="description" onChange={(e) => inputHandler(e,"description")}/>
+                <input type="text" name="description" required onChange={(e) => inputHandler(e,"description")}/>
                 <label>Price</label>
-                <input type="number" step="0.01" name="price" min="0.00" onChange={(e) => inputHandler(e,"price")}/>
+                <input type="number" step="0.01" required name="price" min="0.00" onChange={(e) => inputHandler(e,"price")}/>
                 <label>Image Url</label>
                 <input type="text" name="imageUrl" onChange={(e) => inputHandler(e,"imageUrl")}/>
+                <label>Section</label>
+                <input type="text" name="section" required onChange={(e) => inputHandler(e,"section")}/>
                 <button type="submit">Add Item</button>
             </form>
         </div>

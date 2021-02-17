@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import AddItem from "../addItem";
 
 const DisplayItems = props => {
     const [items, setItems] = useState([]);
@@ -19,11 +20,9 @@ const DisplayItems = props => {
         .then(data => setItems(data));
     }, [])
 
-    //if props.display === true then display menu
-
     return (
         <div>
-
+            <AddItem id={props.menu._id}/>
         </div>
     )
 }

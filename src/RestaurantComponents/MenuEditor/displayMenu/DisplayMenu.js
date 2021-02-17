@@ -6,7 +6,7 @@ import DisplayItems from "./DisplayItems";
 
 const DisplayMenu = props => {
     const [auth] = useContext(AuthContext);
-    const [toggledMenu, setToggledMenu] = useState();
+    const [toggledMenu, setToggledMenu] = useState(false);
 
     const deleteMenuHandler = (menuId) => {
         fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}/delete`, {
@@ -15,13 +15,27 @@ const DisplayMenu = props => {
         }).catch(err => console.log(err));
     }
 
+    const toggleHandler = () => {
+        setToggledMenu(prevState => !prevState);
+    }
+
+    let toggleButton = <button onClick={toggleHandler}>Display Menu</button>
+
+    if (toggledMenu){
+        toggleButton = <button onClick={toggleHandler}>Hide Menu</button>
+    }
+
+    let renderMenu;
+    if (toggledMenu) {
+        renderMenu = <DisplayItems menu={props.menu}/>
+    }
     return (
         <div className={classes.Menu}>
             <h1>{props.menu.name}</h1>
             <p>{props.menu.description}</p>
             <button onClick={() => deleteMenuHandler(props.menu._id)}>Delete</button>
-            <button>Display Menu</button>
-            <DisplayItems menu={props.menu} display={toggledMenu === props.menu._id ? true : false}/>
+            {toggleButton}
+            {renderMenu}
         </div>
     )
 }
