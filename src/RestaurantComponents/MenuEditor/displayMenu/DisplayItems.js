@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import AddItem from "../addItem";
+import ItemCard from "./ItemCard";
 
 const DisplayItems = props => {
     const [items, setItems] = useState([]);
@@ -17,20 +18,14 @@ const DisplayItems = props => {
         });
         Promise.all(promises)
         .then(data => setItems(data));
-    }, [])
+    }, [items])
 
     let renderItems = <h1>No Items in Menu</h1>
 
     if (items && items.length > 0){
         renderItems = items.map(item => {
             if (item && item.inStock){
-                return (
-                    <div key={item._id}>
-                        <h1>{item.name}</h1>
-                        <h3>{item.description}</h3>
-                        <h3>{item.price}</h3>
-                    </div>
-                )
+                return <ItemCard key={item._id} item={item}/>
             } else {
                 return null;
             }

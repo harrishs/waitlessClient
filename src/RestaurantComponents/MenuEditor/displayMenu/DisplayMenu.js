@@ -8,8 +8,8 @@ const DisplayMenu = props => {
     const [auth] = useContext(AuthContext);
     const [toggledMenu, setToggledMenu] = useState(false);
 
-    const deleteMenuHandler = (menuId) => {
-        fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}/delete`, {
+    const deleteMenuHandler = () => {
+        fetch(`${process.env.REACT_APP_API}/restaurant/${props.menu._id}/delete`, {
             method: "DELETE",
             headers: {'X-Auth-Token': auth.token}
         }).catch(err => console.log(err));
@@ -33,8 +33,8 @@ const DisplayMenu = props => {
         <div className={classes.Menu}>
             <h1>{props.menu.name}</h1>
             <p>{props.menu.description}</p>
-            <button onClick={() => deleteMenuHandler(props.menu._id)}>Delete</button>
             {toggleButton}
+            <button onClick={deleteMenuHandler}>Delete</button>
             {renderMenu}
         </div>
     )
