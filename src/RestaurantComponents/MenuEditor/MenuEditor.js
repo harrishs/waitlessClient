@@ -18,7 +18,7 @@ const MenuEditor = () => {
             let promises = [];
             data.menus.forEach(menuId => {
                 promises.push(
-                    fetch(`${process.env.REACT_APP_API}/restaurant/${menuId}`)
+                    fetch(`${process.env.REACT_APP_API}/restaurant/menus/${menuId}`)
                     .then(response => response.json())
                     .then(data => data.menu)
                     .catch(err => console.log(err))

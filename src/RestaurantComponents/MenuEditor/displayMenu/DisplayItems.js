@@ -7,10 +7,9 @@ const DisplayItems = props => {
     useEffect(() => {
         //receive array of menuIds from data.menus and retrieve all menu details
         let promises = [];
-        console.log(props.menu.items);
         props.menu.items.forEach(itemId => {
             promises.push(
-                fetch(`${process.env.REACT_APP_API}/restaurant/${itemId}`)
+                fetch(`${process.env.REACT_APP_API}/restaurant/items/${itemId}`)
                 .then(response => response.json())
                 .then(data => data.item)
                 .catch(err => console.log(err))
@@ -20,8 +19,27 @@ const DisplayItems = props => {
         .then(data => setItems(data));
     }, [])
 
+    let renderItems = <h1>No Items in Menu</h1>
+
+    if (items && items.length > 0){
+        renderItems = items.map(item => {
+            if (item && item.inStock){
+                return (
+                    <div key={item._id}>
+                        <h1>{item.name}</h1>
+                        <h3>{item.description}</h3>
+                        <h3>{item.price}</h3>
+                    </div>
+                )
+            } else {
+                return null;
+            }
+        })
+    }
+
     return (
         <div>
+            {renderItems}
             <AddItem id={props.menu._id}/>
         </div>
     )
