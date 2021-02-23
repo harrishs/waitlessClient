@@ -7,17 +7,19 @@ const DisplayItems = props => {
 
     useEffect(() => {
         //receive array of menuIds from data.menus and retrieve all menu details
-        let promises = [];
-        props.menu.items.forEach(itemId => {
-            promises.push(
-                fetch(`${process.env.REACT_APP_API}/restaurant/items/${itemId}`)
-                .then(response => response.json())
-                .then(data => data.item)
-                .catch(err => console.log(err))
-            );
-        });
-        Promise.all(promises)
-        .then(data => setItems(data));
+        if (props.toggled){
+            let promises = [];
+            props.menu.items.forEach(itemId => {
+                promises.push(
+                    fetch(`${process.env.REACT_APP_API}/restaurant/items/${itemId}`)
+                    .then(response => response.json())
+                    .then(data => data.item)
+                    .catch(err => console.log(err))
+                );
+            });
+            Promise.all(promises)
+            .then(data => setItems(data));
+        }
     }, [items])
 
     let renderItems = <h1>No Items in Menu</h1>

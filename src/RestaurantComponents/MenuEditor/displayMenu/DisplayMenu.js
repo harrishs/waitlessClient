@@ -27,7 +27,7 @@ const DisplayMenu = props => {
 
     let renderMenu;
     if (toggledMenu) {
-        renderMenu = <DisplayItems menu={props.menu}/>
+        renderMenu = <DisplayItems menu={props.menu} toggled={toggledMenu}/>
     }
     return (
         <div className={classes.Menu}>
