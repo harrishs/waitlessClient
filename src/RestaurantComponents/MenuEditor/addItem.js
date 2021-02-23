@@ -31,7 +31,7 @@ const AddItem = props => {
             headers: { 'Content-Type': 'application/json', 'X-Auth-Token': auth.token },
             body: JSON.stringify({name, description, price, imageUrl, section})
         };
-        fetch(`${process.env.REACT_APP_API}/restaurant/${props.id}/addItem`, reqOptions)
+        fetch(`${process.env.REACT_APP_API}/restaurant/menus/${props.id}/addItem`, reqOptions)
         .then(res => res.json())
         .then(data => {
             console.log(data);

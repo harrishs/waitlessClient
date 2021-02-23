@@ -7,7 +7,8 @@ const DisplayItems = props => {
 
     useEffect(() => {
         //receive array of menuIds from data.menus and retrieve all menu details
-        if (props.toggled){
+        let toggled = true;
+        if (toggled){
             let promises = [];
             props.menu.items.forEach(itemId => {
                 promises.push(
@@ -19,8 +20,12 @@ const DisplayItems = props => {
             });
             Promise.all(promises)
             .then(data => setItems(data));
+        } 
+        
+        return function cleanup() {
+            toggled = false;
         }
-    }, [items])
+    }, [items, props.toggled]);
 
     let renderItems = <h1>No Items in Menu</h1>
 

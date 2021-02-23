@@ -9,7 +9,7 @@ const DisplayMenu = props => {
     const [toggledMenu, setToggledMenu] = useState(false);
 
     const deleteMenuHandler = () => {
-        fetch(`${process.env.REACT_APP_API}/restaurant/${props.menu._id}/delete`, {
+        fetch(`${process.env.REACT_APP_API}/restaurant/menus/${props.menu._id}/delete`, {
             method: "DELETE",
             headers: {'X-Auth-Token': auth.token}
         }).catch(err => console.log(err));
@@ -27,7 +27,7 @@ const DisplayMenu = props => {
 
     let renderMenu;
     if (toggledMenu) {
-        renderMenu = <DisplayItems menu={props.menu} toggled={toggledMenu}/>
+        renderMenu = <DisplayItems menu={props.menu}/>
     }
     return (
         <div className={classes.Menu}>
