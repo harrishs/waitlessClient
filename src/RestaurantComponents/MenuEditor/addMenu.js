@@ -1,5 +1,6 @@
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context/authContext";
+import classes from "./addForm.module.css";
 
 const AddMenu = props => {
     const [name, setName] = useState("");
@@ -32,7 +33,7 @@ const AddMenu = props => {
     return (
         <div>
             <h1>Add Menu</h1>
-            <form onSubmit={(e) => submitHandler(e)}>
+            <form onSubmit={(e) => submitHandler(e)} className={classes.Form}>
                 <label>Name</label>
                 <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
                 <label>Description</label>

@@ -59,7 +59,7 @@ const ItemCard = props => {
 
     if (editMode) {
         displayCard = (
-            <form onSubmit={(e) => editItemHandler(e)}>
+            <form onSubmit={(e) => editItemHandler(e)} className={classes.Form}>
             <label>Name</label>
             <input type="text" name="name" required defaultValue={props.item.name} onChange={(e) => inputHandler(e,"name")}/>
             <label>Description</label>
@@ -70,7 +70,10 @@ const ItemCard = props => {
             <input type="text" name="imageUrl" defaultValue={props.item.imageUrl} onChange={(e) => inputHandler(e,"imageUrl")}/>
             <label>Section</label>
             <input type="text" name="section" required defaultValue={props.item.section} onChange={(e) => inputHandler(e,"section")}/>
+            <div>
             <button type="submit">Update Item</button>
+            <button onClick={() => setEditMode(false)}>Cancel</button>
+            </div>
         </form>
         )
     }

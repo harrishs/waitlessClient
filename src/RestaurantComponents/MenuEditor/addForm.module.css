@@ -1,14 +1,9 @@
-.Card {
-  width: 80%;
-  margin: 0 auto;
-  border: 1px solid black;
-}
-
 .Form {
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  margin-top: -15px;
 }
 
 .Form input {
@@ -16,5 +11,5 @@
 }
 
 .Form button {
-  margin: 10px 5px !important;
+  margin: 10px auto !important;
 }
