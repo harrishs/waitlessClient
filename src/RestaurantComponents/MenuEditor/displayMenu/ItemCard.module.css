@@ -2,6 +2,7 @@
   width: 80%;
   margin: 0 auto;
   border: 1px solid black;
+  text-align: center;
 }
 
 .Form {
@@ -16,5 +17,5 @@
 }
 
 .Form button {
-  margin: 10px 5px !important;
+  margin: 10px auto !important;
 }
