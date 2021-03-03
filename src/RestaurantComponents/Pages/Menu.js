@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ItemCard from "../MenuEditor/displayMenu/ItemCard";
+import classes from "./Menu.module.css";
 
 const Menu = () => {
     const params = useParams();
@@ -52,7 +53,7 @@ const Menu = () => {
     }
 
     return (
-        <div>
+        <div className={classes.Menu}>
             {details}
             {renderItems}
         </div>

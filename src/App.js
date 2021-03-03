@@ -34,7 +34,6 @@ function App() {
       <Route path="/register" exact component={Register} />
       <Route path="/:menuId" exact component={Menu} />
       {/* add route for main page */}
-      <Redirect to="/login" />
     </Switch>
   )
 
