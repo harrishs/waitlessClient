@@ -14,7 +14,6 @@ const Register = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log(process.env.REACT_APP_API);
         let reqOptions = {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
@@ -33,7 +32,6 @@ const Register = () => {
                 localStorage.setItem("userId", data.userId);
                 localStorage.setItem("token", data.token);
             }
-            console.log(data);
         }).catch(err => console.log(err));
     }
 

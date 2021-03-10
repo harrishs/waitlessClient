@@ -42,14 +42,13 @@ const ItemCard = props => {
         fetch(`${process.env.REACT_APP_API}/restaurant/items/${props.item.menu}/${props.item._id}/edit`, reqOptions)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             setEditMode(false);
         }).catch(err => console.log(err));
     }
 
     let cardButtons;
 
-    if (props.client){
+    if (!props.client){
         cardButtons = (
             <>
             <button onClick={() => setEditMode(prevState => !prevState)}>Edit</button>
@@ -63,6 +62,7 @@ const ItemCard = props => {
         <h1>{props.item.name}</h1>
         <h3>{props.item.description}</h3>
         <h3>{props.item.price}</h3>
+        {cardButtons}
     </div>
     )
 

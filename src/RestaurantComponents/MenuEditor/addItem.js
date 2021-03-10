@@ -34,9 +34,7 @@ const AddItem = props => {
         };
         fetch(`${process.env.REACT_APP_API}/restaurant/menus/${props.id}/addItem`, reqOptions)
         .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        }).catch(err => console.log(err));
+        .catch(err => console.log(err));
     }
 
     return (
