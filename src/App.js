@@ -9,6 +9,7 @@ import Login from "./MainComponents/Auth/Login";
 import Register from "./MainComponents/Auth/Register";
 import Logout from "./MainComponents/Auth/Logout";
 import Menu from "./RestaurantComponents/Pages/Menu";
+import WaitlistEditor from "./RestaurantComponents/Waitlist/WaitlistEditor";
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     <Switch>
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
-      <Route path="/:menuId" exact component={Menu} />
+      <Route path="/menu/:menuId" exact component={Menu} />
       {/* add route for main page */}
     </Switch>
   )
@@ -40,8 +41,10 @@ function App() {
   if (auth.isAuth){
     routes = (
       <Switch>
-        <Route path="/logout" exact component={Logout}/>
         <Route path="/" exact component={MenuEditor} />
+        <Route path="/waitlist" exact component={WaitlistEditor} />
+        <Route path="/logout" exact component={Logout}/>
+        <Route path="/menu/:menuId" component={Menu} />
         <Redirect to="/" />
       </Switch>
     )
