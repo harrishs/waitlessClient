@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import React, {useEffect, useState, useContext} from "react";
 import { AuthContext } from "../../context/authContext";
 
@@ -16,7 +15,7 @@ const WaitlistEditor = props => {
         .then(response => response.json())
         .then(data => setWaitlist(data.waitlist))
         .catch(err => console.log(err));
-    }, [auth.userId])
+    }, [auth.userId, waitlist])
 
     const inputHandler = (e, type) => {
         if (type === "name"){
