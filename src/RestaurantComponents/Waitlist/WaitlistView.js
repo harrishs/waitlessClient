@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 
+import AddReservation from "./AddReservation";
+
 const WaitlistView = props => {
     const [reservations, setReservations] = useState([]);
 
@@ -20,6 +22,8 @@ const WaitlistView = props => {
             <h1>{props.waitlist.name}</h1>
             <h3>{props.waitlist.time}mins</h3>
             {renderReservations}
+            <AddReservation waitlist={props.waitlist}/>
+            <button>Delete Waitlist</button>
         </div>
     )
 }
