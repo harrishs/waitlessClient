@@ -41,8 +41,8 @@ function App() {
   if (auth.isAuth){
     routes = (
       <Switch>
-        <Route path="/" exact component={MenuEditor} />
-        <Route path="/waitlist" exact component={WaitlistEditor} />
+        <Route path="/" exact component={WaitlistEditor} />
+        <Route path="/menu" exact component={MenuEditor} />
         <Route path="/logout" exact component={Logout}/>
         <Route path="/menu/:menuId" component={Menu} />
         <Redirect to="/" />

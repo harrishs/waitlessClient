@@ -7,9 +7,10 @@ import {AuthContext} from "../../../context/authContext";
 const NavItems = () => {
     const [auth] = useContext(AuthContext);
 
+
     let items = (
         <>
-            <NavItem link="/login" active>Login</NavItem>
+            <NavItem link="/login">Login</NavItem>
             <NavItem link="/register">Register</NavItem>
         </>
     )
@@ -17,7 +18,8 @@ const NavItems = () => {
     if (auth.isAuth){
         items = (
             <>
-                <NavItem link="/" active>Menu Editor</NavItem>
+                <NavItem link="/">Waitlist Editor</NavItem>
+                <NavItem link="/menu">Menu Editor</NavItem>
                 <NavItem link="/logout">Logout</NavItem>
             </>
         )
