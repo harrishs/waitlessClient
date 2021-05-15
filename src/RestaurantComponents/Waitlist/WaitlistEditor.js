@@ -33,17 +33,19 @@ const WaitlistEditor = props => {
             body: JSON.stringify({name, time})
         };
 
+        let baseUrl = `${process.env.REACT_APP_API}/waitlist/`;
+
         if (type === "add"){
-            fetch(`${process.env.REACT_APP_API}/waitlist/${auth.userId}/addWaitlist`, reqOptions)
-            .then(res => res.json())
-            .then(waitlist => setWaitlist(waitlist))
-            .catch(err => console.log(err));
+            baseUrl += `${auth.userId}/addWaitlist`;
         } else if (type === "update"){
-            fetch(`${process.env.REACT_APP_API}/waitlist/${waitlist.id}/update`, reqOptions)
-            .then(res => res.json())
-            .then(waitlist => setWaitlist(waitlist))
-            .catch(err => console.log(err));
+            baseUrl += `${waitlist._id}/update`;
+            reqOptions.method = "PUT"
         }
+
+        fetch(baseUrl, reqOptions)
+        .then(res => res.json())
+        .then(data => setWaitlist(data.result))
+        .catch(err => console.log(err));
     }
 
     let form = (
@@ -53,7 +55,7 @@ const WaitlistEditor = props => {
             <label>Name</label>
             <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
             <label>Time</label>
-            <input type="number" name="description"  step="0.1" onChange={(e) => inputHandler(e,"time")}/>
+            <input type="number" name="time"  step="0.1" onChange={(e) => inputHandler(e,"time")}/>
             <button type="submit">Add Waitlist</button>
         </form>
     </div>
@@ -67,7 +69,7 @@ const WaitlistEditor = props => {
                 <label>Name</label>
                 <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
                 <label>Time</label>
-                <input type="number" name="description"  step="0.1" onChange={(e) => inputHandler(e,"time")}/>
+                <input type="number" name="time"  step="0.1" onChange={(e) => inputHandler(e,"time")}/>
                 <button type="submit">Update Waitlist</button>
             </form>
         </div>
