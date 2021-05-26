@@ -7,6 +7,7 @@ const WaitlistEditor = props => {
     const [name, setName] = useState("");
     const [time, setTime] = useState();
     const [waitlist, setWaitlist] = useState();
+    const [increment, setIncrement] = useState();
 
     const [auth] = useContext(AuthContext);
 
@@ -22,6 +23,8 @@ const WaitlistEditor = props => {
             setName(e.target.value);
         } else if (type === "time"){
             setTime(e.target.value);
+        } else if (type === "increment"){
+            setIncrement(e.target.value)
         }
     }
 
@@ -30,7 +33,7 @@ const WaitlistEditor = props => {
         let reqOptions = {
             method: "POST",
             headers: { 'Content-Type': 'application/json', 'X-Auth-Token': auth.token},
-            body: JSON.stringify({name, time})
+            body: JSON.stringify({name, time, increment})
         };
 
         let baseUrl = `${process.env.REACT_APP_API}/waitlist/`;
@@ -55,7 +58,9 @@ const WaitlistEditor = props => {
             <label>Name</label>
             <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
             <label>Time</label>
-            <input type="number" name="time"  step="0.1" onChange={(e) => inputHandler(e,"time")}/>
+            <input type="number" name="time"  step="1" onChange={(e) => inputHandler(e,"time")}/>
+            <label>Increment</label>
+            <input type="number" name="time"  step="1" onChange={(e) => inputHandler(e,"increment")}/>
             <button type="submit">Add Waitlist</button>
         </form>
     </div>
@@ -69,7 +74,9 @@ const WaitlistEditor = props => {
                 <label>Name</label>
                 <input type="text" name="name" onChange={(e) => inputHandler(e,"name")}/>
                 <label>Time</label>
-                <input type="number" name="time"  step="0.1" onChange={(e) => inputHandler(e,"time")}/>
+                <input type="number" name="time"  step="1" onChange={(e) => inputHandler(e,"time")}/>
+                <label>Increment</label>
+                <input type="number" name="time"  step="1" onChange={(e) => inputHandler(e,"increment")}/>
                 <button type="submit">Update Waitlist</button>
             </form>
         </div>
